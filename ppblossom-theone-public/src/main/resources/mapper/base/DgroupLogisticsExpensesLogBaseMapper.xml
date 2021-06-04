@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- base mybatis file for sql defined by tool  -->
+<mapper namespace="com.meicai.ppblossom.theone.biz.logistics.mapper.DgroupLogisticsExpensesLogMapper">
+  <!--database table: (d_group_logistics_expenses_log) with javabean : (com.managersys.books.entity.DgroupLogisticsExpensesLogEntity)-->
+  <resultMap id="rm_DgroupLogisticsExpensesLogEntity" type="com.meicai.ppblossom.theone.biz.logistics.entity.DgroupLogisticsExpensesLogEntity">
+  	<result property="id" column="id"/>
+  	<result property="expensesId" column="expenses_id"/>
+  	<result property="operatorParam" column="operator_param"/>
+  	<result property="operatorText" column="operator_text"/>
+  	<result property="operatorType" column="operator_type"/>
+  	<result property="operatorId" column="operator_id"/>
+  	<result property="operatorName" column="operator_name"/>
+  	<result property="ct" column="c_t"/>
+  	<result property="ut" column="u_t"/>
+  	<result property="isDeleted" column="is_deleted"/>
+  </resultMap>
+  
+  <!--columns of table-->
+  <sql id="columns">
+    <![CDATA[
+		id,expenses_id,operator_param,operator_text,operator_type,
+		operator_id,operator_name,c_t,u_t,is_deleted
+     ]]>
+  </sql>
+  
+  <!--the 'where' sql of search  -->
+  <sql id="where_sql">
+    <where>
+      <if test="id != null">
+        and id =  #{id}
+      </if>
+      <if test="expensesId != null">
+        and expenses_id =  #{expensesId}
+      </if>
+      <if test="operatorParam != null">
+        and operator_param =  #{operatorParam}
+      </if>
+      <if test="operatorText != null">
+        and operator_text =  #{operatorText}
+      </if>
+      <if test="operatorType != null">
+        and operator_type =  #{operatorType}
+      </if>
+      <if test="operatorId != null">
+        and operator_id =  #{operatorId}
+      </if>
+      <if test="operatorName != null">
+        and operator_name =  #{operatorName}
+      </if>
+      <if test="ct != null">
+        and c_t =  #{ct}
+      </if>
+      <if test="ut != null">
+        and u_t =  #{ut}
+      </if>
+      <if test="isDeleted != null">
+        and is_deleted =  #{isDeleted}
+      </if>
+    </where>
+  </sql>
+  
+  <!--the 'where' sql with table alias of search  -->
+  <sql id="where_with_alias_sql">
+    <where>
+      <if test="tb.id != null">
+        and id =  #{tb.id}
+      </if>
+      <if test="tb.expensesId != null">
+        and expenses_id =  #{tb.expensesId}
+      </if>
+      <if test="tb.operatorParam != null">
+        and operator_param =  #{tb.operatorParam}
+      </if>
+      <if test="tb.operatorText != null">
+        and operator_text =  #{tb.operatorText}
+      </if>
+      <if test="tb.operatorType != null">
+        and operator_type =  #{tb.operatorType}
+      </if>
+      <if test="tb.operatorId != null">
+        and operator_id =  #{tb.operatorId}
+      </if>
+      <if test="tb.operatorName != null">
+        and operator_name =  #{tb.operatorName}
+      </if>
+      <if test="tb.ct != null">
+        and c_t =  #{tb.ct}
+      </if>
+      <if test="tb.ut != null">
+        and u_t =  #{tb.ut}
+      </if>
+      <if test="tb.isDeleted != null">
+        and is_deleted =  #{tb.isDeleted}
+      </if>
+    </where>
+  </sql>
+  
+  <!-- the 'sort' sql for search -->
+  <sql id="sort_sql">
+    <trim>
+      <if test="sort != null and sort.size() >0 ">
+        ORDER BY
+        <foreach collection="sort" index="key" item="value" open="" separator="," close="">
+          <choose>
+            <when test="key!=null and 'id'.equalsIgnoreCase(key)">
+              id
+            </when>
+            <when test="key!=null and 'expensesId'.equalsIgnoreCase(key)">
+              expenses_id
+            </when>
+            <when test="key!=null and 'operatorParam'.equalsIgnoreCase(key)">
+              operator_param
+            </when>
+            <when test="key!=null and 'operatorText'.equalsIgnoreCase(key)">
+              operator_text
+            </when>
+            <when test="key!=null and 'operatorType'.equalsIgnoreCase(key)">
+              operator_type
+            </when>
+            <when test="key!=null and 'operatorId'.equalsIgnoreCase(key)">
+              operator_id
+            </when>
+            <when test="key!=null and 'operatorName'.equalsIgnoreCase(key)">
+              operator_name
+            </when>
+            <when test="key!=null and 'ct'.equalsIgnoreCase(key)">
+              c_t
+            </when>
+            <when test="key!=null and 'ut'.equalsIgnoreCase(key)">
+              u_t
+            </when>
+            <when test="key!=null and 'isDeleted'.equalsIgnoreCase(key)">
+              is_deleted
+            </when>
+          </choose>
+          <choose>
+            <when test="'asc'.equalsIgnoreCase(value)">
+              asc
+            </when>
+            <when test="'desc'.equalsIgnoreCase(value)">
+              desc
+            </when>
+            <otherwise>
+              asc
+            </otherwise>
+          </choose>
+        </foreach>
+      </if>
+    </trim>
+  </sql>
+  
+  <!-- the 'set' sql for search -->
+  <sql id="update_sql">
+    <set>
+      <if test="id != null">
+        id =  #{id} ,
+      </if>
+      <if test="expensesId != null">
+        expenses_id =  #{expensesId} ,
+      </if>
+      <if test="operatorParam != null">
+        operator_param =  #{operatorParam} ,
+      </if>
+      <if test="operatorText != null">
+        operator_text =  #{operatorText} ,
+      </if>
+      <if test="operatorType != null">
+        operator_type =  #{operatorType} ,
+      </if>
+      <if test="operatorId != null">
+        operator_id =  #{operatorId} ,
+      </if>
+      <if test="operatorName != null">
+        operator_name =  #{operatorName} ,
+      </if>
+      <if test="ct != null">
+        c_t =  #{ct} ,
+      </if>
+      <if test="ut != null">
+        u_t =  #{ut} ,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted =  #{isDeleted} ,
+      </if>
+    </set>
+  </sql>
+  
+  <!-- the 'set' sql with table alias for search -->
+  <sql id="update_with_alias_sql">
+    <set>
+      <if test="tb.id != null">
+        id = #{tb.id} ,
+      </if>
+      <if test="tb.expensesId != null">
+        expenses_id = #{tb.expensesId} ,
+      </if>
+      <if test="tb.operatorParam != null">
+        operator_param = #{tb.operatorParam} ,
+      </if>
+      <if test="tb.operatorText != null">
+        operator_text = #{tb.operatorText} ,
+      </if>
+      <if test="tb.operatorType != null">
+        operator_type = #{tb.operatorType} ,
+      </if>
+      <if test="tb.operatorId != null">
+        operator_id = #{tb.operatorId} ,
+      </if>
+      <if test="tb.operatorName != null">
+        operator_name = #{tb.operatorName} ,
+      </if>
+      <if test="tb.ct != null">
+        c_t = #{tb.ct} ,
+      </if>
+      <if test="tb.ut != null">
+        u_t = #{tb.ut} ,
+      </if>
+      <if test="tb.isDeleted != null">
+        is_deleted = #{tb.isDeleted} ,
+      </if>
+    </set>
+  </sql>
+  
+  <!-- update the table by 'id' sql -->
+  <update id="updateById" parameterType="java.util.Map">
+    UPDATE d_group_logistics_expenses_log
+    <include refid="update_with_alias_sql"/>
+	<where>
+		and id = #{id}
+	</where>
+  </update>
+
+  <!-- insert value sql -->
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+      INSERT INTO d_group_logistics_expenses_log
+        (
+			expenses_id,operator_param,operator_text,operator_type,operator_id,	
+			operator_name,c_t,u_t,is_deleted	
+		)
+      VALUES
+      	(
+			#{expensesId},#{operatorParam},#{operatorText},#{operatorType},#{operatorId},	
+			#{operatorName},#{ct},#{ut},#{isDeleted}	
+      	)
+    ]]>
+  </insert>
+
+  <!-- insert into table with not null -->
+  <insert id="insertNotNull" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO  d_group_logistics_expenses_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="expensesId != null">
+        expenses_id,
+      </if>
+      <if test="operatorParam != null">
+        operator_param,
+      </if>
+      <if test="operatorText != null">
+        operator_text,
+      </if>
+      <if test="operatorType != null">
+        operator_type,
+      </if>
+      <if test="operatorId != null">
+        operator_id,
+      </if>
+      <if test="operatorName != null">
+        operator_name,
+      </if>
+      <if test="ct != null">
+        c_t,
+      </if>
+      <if test="ut != null">
+        u_t,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="  VALUES(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+         #{id} ,
+      </if>
+      <if test="expensesId != null">
+         #{expensesId} ,
+      </if>
+      <if test="operatorParam != null">
+         #{operatorParam} ,
+      </if>
+      <if test="operatorText != null">
+         #{operatorText} ,
+      </if>
+      <if test="operatorType != null">
+         #{operatorType} ,
+      </if>
+      <if test="operatorId != null">
+         #{operatorId} ,
+      </if>
+      <if test="operatorName != null">
+         #{operatorName} ,
+      </if>
+      <if test="ct != null">
+         #{ct} ,
+      </if>
+      <if test="ut != null">
+         #{ut} ,
+      </if>
+      <if test="isDeleted != null">
+         #{isDeleted} ,
+      </if>
+    </trim>
+  </insert>
+
+
+  <!--insert batch into table -->
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO d_group_logistics_expenses_log
+      (
+			expenses_id,operator_param,operator_text,operator_type,operator_id,	
+			operator_name,c_t,u_t,is_deleted	
+		)
+    VALUES
+    <foreach collection="list" item="item" open="" separator="," close="">
+    	(
+			#{item.expensesId},#{item.operatorParam},#{item.operatorText},#{item.operatorType},#{item.operatorId},	
+			#{item.operatorName},#{item.ct},#{item.ut},#{item.isDeleted}	
+    	)
+    </foreach>
+  </insert>
+  
+  <!-- get the records by id -->
+  <select id="getById" resultMap="rm_DgroupLogisticsExpensesLogEntity">
+    SELECT
+    <include refid="columns"/>
+    <![CDATA[
+      FROM d_group_logistics_expenses_log 
+    ]]>
+	<where>
+		and id =#{id}
+	</where>
+  </select>
+
+  <!-- get the records by ids -->
+  <select id="getByIds" resultMap="rm_DgroupLogisticsExpensesLogEntity" parameterType="java.util.List">
+    SELECT
+    <include refid="columns"/>
+    FROM d_group_logistics_expenses_log
+	  WHERE id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+     #{item}      
+    </foreach>
+  </select>  
+
+  <!-- get the records by condition -->
+  <select id="select" resultMap="rm_DgroupLogisticsExpensesLogEntity">
+    SELECT 
+    	<include refid="columns"/>
+		FROM d_group_logistics_expenses_log
+    <include refid="where_with_alias_sql"/>
+    <include refid="sort_sql"/>
+    <choose>
+      <when test="limit != null  and offset != null">
+        limit #{limit} offset  #{offset}  
+      </when>
+      <when test="limit != null  and offset == null">
+        limit #{limit} 
+      </when>
+    </choose>
+  </select>
+
+  <!-- get the count by condition -->
+  <select id="selectCount" resultType="int">
+    SELECT count(1) FROM d_group_logistics_expenses_log
+    <include refid="where_with_alias_sql"/>
+  </select>
+ 
+  <!-- delete the records by conditions -->
+  <delete id="delete">
+    DELETE FROM d_group_logistics_expenses_log
+    <include refid="where_sql"/>
+  </delete>
+
+  <!-- deleted the records by id -->
+  <delete id="deleteById">
+    DELETE FROM d_group_logistics_expenses_log
+    <where>
+		and id = #{id}
+    </where>
+  </delete>
+
+  <!-- deleted the records by ids -->
+  <delete id="deleteByIds" parameterType="java.util.List">
+    delete from d_group_logistics_expenses_log 
+      WHERE id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">      
+	  #{item}
+    </foreach>
+  </delete> 
+</mapper>

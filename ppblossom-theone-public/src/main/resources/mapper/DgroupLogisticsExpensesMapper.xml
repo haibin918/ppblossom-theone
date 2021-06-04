@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- base mybatis file for sql defined by self  -->
+<mapper namespace="com.meicai.ppblossom.theone.biz.logistics.mapper.DgroupLogisticsExpensesMapper">
+
+    <insert id="insertExpenses"
+            parameterType="com.meicai.ppblossom.theone.biz.logistics.entity.DgroupLogisticsExpensesEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id"
+                   order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into d_group_logistics_expenses
+        ( group_id,
+        bill_id,
+        expenses_class_id,
+        expenses_class_name,
+        expenses_name_id,
+        expenses_name,
+        remark,
+        amount_receivable,
+        business_start,
+        business_end,
+        status,
+        is_deleted,
+        c_t,
+        u_t)
+        values
+        (
+        #{groupId},
+        #{billId},
+        #{expensesClassId},
+        #{expensesClassName},
+        #{expensesNameId},
+        #{expensesName},
+        #{remark},
+        #{amountReceivable},
+        #{businessStart},
+        #{businessEnd},
+        #{status},
+        #{isDeleted},
+        #{ct},
+        #{ut}
+        )
+    </insert>
+
+
+    <select id="queryExpenses"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsExpensesReqDto"
+            resultType="com.meicai.ppblossom.theone.api.response.logistics.LogisticsExpensesResDto">
+        select
+        dgle.id as expensesId,
+        dgle.group_id as groupId,
+        dg.name as groupName,
+        dgle.expenses_class_id as expensesClassId,
+        dgle.expenses_class_name as expensesClassName,
+        dgle.expenses_name_id as expensesNameId,
+        dgle.expenses_name as expensesName,
+        dgle.remark as remark,
+        dgle.amount_receivable as amountReceivable,
+        dgle.business_start as businessStart,
+        dgle.business_end as businessEnd,
+        dgle.status as status,
+        dgle.c_t as cT
+        from
+        d_group_logistics_expenses dgle
+        left join d_group dg
+        on dg.id=dgle.group_id
+        where
+        dgle.is_deleted = 0
+        and #{createTimeEnd} >= dgle.c_t
+        and dgle.c_t >= #{createTimeStart}
+        <if test="expensesClassId != null">
+            and dgle.expenses_class_id = #{expensesClassId}
+        </if>
+        <if test="expensesNameId != null">
+            and dgle.expenses_name_id = #{expensesNameId}
+        </if>
+        <if test="status != null">
+            and dgle.status = #{status}
+        </if>
+        <if test="groupId != null">
+            and dgle.group_id = #{groupId}
+        </if>
+        limit #{limit},#{pageSize}
+
+    </select>
+
+    <select id="queryExpensesCount"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsExpensesReqDto"
+            resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        d_group_logistics_expenses dgle
+        left join d_group dg
+        on dg.id=dgle.group_id
+        where
+        dgle.is_deleted = 0
+        and #{createTimeEnd} >= dgle.c_t
+        and dgle.c_t >= #{createTimeStart}
+        <if test="expensesClassId != null">
+            and dgle.expenses_class_id = #{expensesClassId}
+        </if>
+        <if test="expensesNameId != null">
+            and dgle.expenses_name_id = #{expensesNameId}
+        </if>
+        <if test="status != null">
+            and dgle.status = #{status}
+        </if>
+        <if test="groupId != null">
+            and dgle.group_id = #{groupId}
+        </if>
+    </select>
+
+    <select id="queryExpensesAmount"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsExpensesReqDto"
+            resultType="java.lang.Double">
+        select
+        amount_receivable
+        from
+        d_group_logistics_expenses
+        where
+        is_deleted = 0
+        and #{createTimeEnd} >= c_t
+        and c_t >= #{createTimeStart}
+        <if test="expensesClassId != null">
+            and expenses_class_id = #{expensesClassId}
+        </if>
+        <if test="expensesNameId != null">
+            and expenses_name_id = #{expensesNameId}
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="groupId != null">
+            and group_id = #{groupId}
+        </if>
+
+    </select>
+
+
+    <select id="queryExpensesDetail"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsExpensesReqDto"
+            resultType="com.meicai.ppblossom.theone.api.response.logistics.LogisticsExpensesResDto">
+        select
+        dgle.id as expensesId,
+        dgle.group_id as groupId,
+        dg.name as groupName,
+        dgle.expenses_class_id as expensesClassId,
+        dgle.expenses_class_name as expensesClassName,
+        dgle.expenses_name_id as expensesNameId,
+        dgle.expenses_name as expensesName,
+        dgle.remark as remark,
+        dgle.amount_receivable as amountReceivable,
+        dgle.business_start as businessStart,
+        dgle.business_end as businessEnd,
+        dgle.status as status,
+        dgle.c_t as cT
+        from
+        d_group_logistics_expenses dgle
+        left join d_group dg
+        on dg.id=dgle.group_id
+        where
+        dgle.is_deleted = 0
+        and dgle.id = #{expensesId}
+
+    </select>
+
+    <select id="queryExpensesByGroupId"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsExpensesReqDto"
+            resultType="com.meicai.ppblossom.theone.api.response.logistics.LogisticsExpensesResDto">
+        select
+        id as expensesId,
+        expenses_class_id as expensesClassId,
+        expenses_class_name as expensesClassName,
+        expenses_name_id as expensesNameId,
+        expenses_name as expensesName,
+        amount_receivable as amountReceivable,
+        business_start as businessStart,
+        business_end as businessEnd
+        from
+        d_group_logistics_expenses
+        where
+        is_deleted = 0
+        and group_id = #{groupId}
+        and status = 0
+
+    </select>
+
+    <select id="getExpensesStatus" parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsBillReqDto"
+            resultType="com.meicai.ppblossom.theone.api.response.logistics.LogisticsExpensesResDto">
+        SELECT
+        amount_receivable as amountReceivable,
+        status as status,
+        bill_id as billId
+        from d_group_logistics_expenses
+        where
+        is_deleted = 0
+        and id in
+        <foreach item="item" collection="expensesIds" separator="," open="(" close=")" index="">
+            #{item}
+        </foreach>
+    </select>
+
+    <update id="updateExpensesStatus" parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsBillReqDto">
+        update d_group_logistics_expenses set status = #{status},u_t = #{ut} ,bill_id = #{billId}
+        where id in
+        <foreach collection="expensesIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>

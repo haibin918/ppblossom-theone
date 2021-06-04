@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+	<springProperty scope="context" name="LOG_HOME" source="logging.path"/>
+
+	<appender name="Stdout"
+			  class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>[traceId:%X{traceId}] %d{yyyy-MM-dd HH:mm:ss.SSS} %thread %-5p %c %M:%L - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="DailyLogAppender"
+			  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/all.log</file>
+		<rollingPolicy
+				class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>
+				${LOG_HOME}/all.log_%d{yyyy-MM-dd}.%i.log.zip
+			</FileNamePattern>
+			<MaxHistory>5</MaxHistory>
+			<totalSizeCap>10GB</totalSizeCap>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>1GB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>[traceId:%X{traceId}] %d{yyyy-MM-dd HH:mm:ss.SSS} %thread %-5p %c %M:%L - %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="Stdout" />
+		<appender-ref ref="DailyLogAppender" />
+	</root>
+
+</configuration>

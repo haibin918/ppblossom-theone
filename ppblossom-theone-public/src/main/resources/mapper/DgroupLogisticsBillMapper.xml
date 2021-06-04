@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- base mybatis file for sql defined by self  -->
+<mapper namespace="com.meicai.ppblossom.theone.biz.logistics.mapper.DgroupLogisticsBillMapper">
+
+    <insert id="insertBill"
+            parameterType="com.meicai.ppblossom.theone.biz.logistics.entity.DgroupLogisticsBillEntity">
+        <selectKey resultType="java.lang.Long" keyProperty="id"
+                   order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into d_group_logistics_bill
+        ( group_id,
+        audit_time,
+        remark,
+        amount_receivable,
+        status,
+        is_deleted,
+        c_t,
+        u_t)
+        values
+        (
+        #{groupId},
+        0,
+        #{remark},
+        #{amountReceivable},
+        0,
+        0,
+        #{ct},
+        #{ut}
+        )
+    </insert>
+
+
+    <select id="queryBill"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsBillReqDto"
+            resultType="com.meicai.ppblossom.theone.api.response.logistics.LogisticsBillResDto">
+        select
+        dglb.id as billId,
+        dglb.group_id as groupId,
+        dg.name as groupName,
+        dglb.audit_time as auditTime,
+        dglb.remark as remark,
+        dglb.amount_receivable as amountReceivable,
+        dglb.status as status,
+        dglb.c_t as cT
+        from
+        d_group_logistics_bill dglb
+        left join d_group dg
+        on dg.id=dglb.group_id
+        where
+        dglb.is_deleted = 0
+        and #{createTimeEnd} >= dglb.c_t
+        and dglb.c_t >= #{createTimeStart}
+        <if test="auditTimeStart != null">
+            and dglb.audit_time >= #{auditTimeStart}
+        </if>
+        <if test="auditTimeEnd != null">
+            and #{auditTimeEnd} >= dglb.audit_time
+        </if>
+        <if test="status != null">
+            and dglb.status = #{status}
+        </if>
+        <if test="groupId != null">
+            and dglb.group_id = #{groupId}
+        </if>
+        limit #{limit},#{pageSize}
+
+    </select>
+
+    <select id="queryBillCount"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsBillReqDto"
+            resultType="java.lang.Integer">
+        select
+        count(*)
+        from
+        d_group_logistics_bill dglb
+        left join d_group dg
+        on dg.id=dglb.group_id
+        where
+        dglb.is_deleted = 0
+        and #{createTimeEnd} >= dglb.c_t
+        and dglb.c_t >= #{createTimeStart}
+        <if test="auditTimeStart != null">
+            and dglb.audit_time >= #{auditTimeStart}
+        </if>
+        <if test="auditTimeEnd != null">
+            and #{auditTimeEnd} >= dglb.audit_time
+        </if>
+        <if test="status != null">
+            and dglb.status = #{status}
+        </if>
+        <if test="groupId != null">
+            and dglb.group_id = #{groupId}
+        </if>
+
+    </select>
+
+    <select id="queryBillAmount"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsBillReqDto"
+            resultType="java.lang.Double">
+        select
+        amount_receivable
+        from
+        d_group_logistics_bill
+        where
+        is_deleted = 0
+        and #{createTimeEnd} >= c_t
+        and c_t >= #{createTimeStart}
+        <if test="auditTimeStart != null">
+            and audit_time >= #{auditTimeStart}
+        </if>
+        <if test="auditTimeEnd != null">
+            and #{auditTimeEnd} >= audit_time
+        </if>
+        <if test="status != null">
+            and status = #{status}
+        </if>
+        <if test="groupId != null">
+            and group_id = #{groupId}
+        </if>
+
+    </select>
+
+    <select id="queryBillDetail"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsBillReqDto"
+            resultType="com.meicai.ppblossom.theone.api.response.logistics.LogisticsBillResDto">
+        select
+        dglb.id as billId,
+        dglb.group_id as groupId,
+        dg.name as groupName,
+        dglb.remark as remark,
+        dglb.amount_receivable as amountReceivable,
+        dglb.audit_time as auditTime,
+        dglb.status as status,
+        dglb.c_t as cT
+        from
+        d_group_logistics_bill dglb
+        left join d_group dg
+        on dg.id=dglb.group_id
+        where
+        dglb.is_deleted = 0
+        and dglb.id = #{billId}
+
+    </select>
+
+</mapper>

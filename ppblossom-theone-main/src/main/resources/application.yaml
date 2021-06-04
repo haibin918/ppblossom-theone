@@ -1,0 +1,130 @@
+server:
+  port: 8092
+
+
+application:
+  name: ppblossom-theone
+
+spring:
+  datasource:
+    ladder:
+      name: ppblossom-theone
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/books?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&rewriteBatchedStatements=true
+      username: root
+      password: 123456
+      initialSize: 50
+      maxActive: 300
+      minIdle: 50
+      maxWait: 60000
+      defaultAutoCommit: true
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 80000
+      maxEvictableIdleTimeMillis: 100000
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      validationQuery: select 1
+      removeAbandoned: true
+      removeAbandonedTimeout: 180
+      logAbandoned: true
+    keyclient:
+      name: keyclient
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/books?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&rewriteBatchedStatements=true
+      username: root
+      password: 123456
+      initialSize: 50
+      maxActive: 300
+      minIdle: 50
+      maxWait: 1000
+      defaultAutoCommit: true
+      timeBetweenEvictionRunsMillis: 600000
+      minEvictableIdleTimeMillis: 1800000
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      validationQuery: select 1
+      removeAbandoned: true
+      removeAbandonedTimeout: 180
+      logAbandoned: true
+
+  redis:
+    cluster:
+      clusterNodes: 192.168.2.10:9000,192.168.2.13:9001,192.168.2.14:9001
+      commandTimeout: 1000
+      expireSeconds: 1000
+  jedis:
+    database: 0
+    pool:
+      max-active: 1024
+      max-wait: 20000
+      max-idle: 200
+      min-idle: 10
+
+
+mybatis:
+  mapperLocations: classpath*:mapper/*.xml,classpath*:mapper/base/*.xml
+  typeAliasesPackage: com.meicai.**.entity
+  configuration:
+    mapUnderscoreToCamelCase: true
+
+zookeeper:
+  address: 192.168.2.26:2181
+
+dubbo:
+  provider:
+    version: 1.0.0
+  service:
+    check: false
+    version: 1.0.0
+
+
+
+projectconf:
+  env: test
+
+
+
+logging:
+  path: /tmp/data/logs/ppblossom-theone
+  level:
+    root: info
+    com.sprucetec.hawkeye.sdk: error
+    com.meicai.ppblossom.theone.appoint.mapper: debug
+    com.meicai.ppblossom.theone.biz.group.mapper: debug
+    com.meicai.ppblossom.theone.contract.mapper: debug
+    com.meicai.ppblossom.theone.purchase.mapper: debug
+
+
+mcq:
+  nameserver:
+    address: 192.168.2.210:9876;192.168.2.211:9876
+
+
+############  actuator监控  ############
+management:
+  server:
+    port: 8092
+    servlet:
+      context-path: /
+  health:
+    diskSpace:
+      enabled: true
+    db:
+      enabled: true
+    redis:
+      enabled: true
+    elasticsearch:
+      enabled: false
+    mail:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"

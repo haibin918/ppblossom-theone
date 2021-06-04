@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- base mybatis file for sql defined by self  -->
+<mapper namespace="com.meicai.ppblossom.theone.biz.logistics.mapper.DgroupLogisticsBillLogMapper">
+
+    <select id="queryBillLog"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsBillReqDto"
+            resultType="com.meicai.ppblossom.theone.api.response.logistics.LogisticsExpensesLogResDto">
+        select
+        operator_id as operatorId,
+        operator_name as operatorName,
+        operator_text as operatorText,
+        c_t as operatorTime
+        from
+        d_group_logistics_bill_log
+
+        where
+        is_deleted = 0
+        and bill_id >= #{billId}
+
+    </select>
+
+</mapper>

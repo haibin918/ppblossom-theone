@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- base mybatis file for sql defined by tool  -->
+<mapper namespace="com.meicai.ppblossom.theone.biz.logistics.mapper.DgroupLogisticsBillMapper">
+  <!--database table: (d_group_logistics_bill) with javabean : (com.managersys.books.entity.DgroupLogisticsBillEntity)-->
+  <resultMap id="rm_DgroupLogisticsBillEntity" type="com.meicai.ppblossom.theone.biz.logistics.entity.DgroupLogisticsBillEntity">
+  	<result property="id" column="id"/>
+  	<result property="groupId" column="group_id"/>
+  	<result property="amountReceivable" column="amount_receivable"/>
+  	<result property="status" column="status"/>
+  	<result property="auditTime" column="audit_time"/>
+  	<result property="remark" column="remark"/>
+  	<result property="ct" column="c_t"/>
+  	<result property="ut" column="u_t"/>
+  	<result property="isDeleted" column="is_deleted"/>
+  </resultMap>
+
+  <!--columns of table-->
+  <sql id="columns">
+    <![CDATA[
+		id,group_id,amount_receivable,status,audit_time,
+		remark,c_t,u_t,is_deleted
+     ]]>
+  </sql>
+
+  <!--the 'where' sql of search  -->
+  <sql id="where_sql">
+    <where>
+      <if test="id != null">
+        and id =  #{id}
+      </if>
+      <if test="groupId != null">
+        and group_id =  #{groupId}
+      </if>
+      <if test="amountReceivable != null">
+        and amount_receivable =  #{amountReceivable}
+      </if>
+      <if test="status != null">
+        and status =  #{status}
+      </if>
+      <if test="auditTime != null">
+        and audit_time =  #{auditTime}
+      </if>
+      <if test="remark != null">
+        and remark =  #{remark}
+      </if>
+      <if test="ct != null">
+        and c_t =  #{ct}
+      </if>
+      <if test="ut != null">
+        and u_t =  #{ut}
+      </if>
+      <if test="isDeleted != null">
+        and is_deleted =  #{isDeleted}
+      </if>
+    </where>
+  </sql>
+
+  <!--the 'where' sql with table alias of search  -->
+  <sql id="where_with_alias_sql">
+    <where>
+      <if test="tb.id != null">
+        and id =  #{tb.id}
+      </if>
+      <if test="tb.groupId != null">
+        and group_id =  #{tb.groupId}
+      </if>
+      <if test="tb.amountReceivable != null">
+        and amount_receivable =  #{tb.amountReceivable}
+      </if>
+      <if test="tb.status != null">
+        and status =  #{tb.status}
+      </if>
+      <if test="tb.auditTime != null">
+        and audit_time =  #{tb.auditTime}
+      </if>
+      <if test="tb.remark != null">
+        and remark =  #{tb.remark}
+      </if>
+      <if test="tb.ct != null">
+        and c_t =  #{tb.ct}
+      </if>
+      <if test="tb.ut != null">
+        and u_t =  #{tb.ut}
+      </if>
+      <if test="tb.isDeleted != null">
+        and is_deleted =  #{tb.isDeleted}
+      </if>
+    </where>
+  </sql>
+
+  <!-- the 'sort' sql for search -->
+  <sql id="sort_sql">
+    <trim>
+      <if test="sort != null and sort.size() >0 ">
+        ORDER BY
+        <foreach collection="sort" index="key" item="value" open="" separator="," close="">
+          <choose>
+            <when test="key!=null and 'id'.equalsIgnoreCase(key)">
+              id
+            </when>
+            <when test="key!=null and 'groupId'.equalsIgnoreCase(key)">
+              group_id
+            </when>
+            <when test="key!=null and 'amountReceivable'.equalsIgnoreCase(key)">
+              amount_receivable
+            </when>
+            <when test="key!=null and 'status'.equalsIgnoreCase(key)">
+              status
+            </when>
+            <when test="key!=null and 'auditTime'.equalsIgnoreCase(key)">
+              audit_time
+            </when>
+            <when test="key!=null and 'remark'.equalsIgnoreCase(key)">
+              remark
+            </when>
+            <when test="key!=null and 'ct'.equalsIgnoreCase(key)">
+              c_t
+            </when>
+            <when test="key!=null and 'ut'.equalsIgnoreCase(key)">
+              u_t
+            </when>
+            <when test="key!=null and 'isDeleted'.equalsIgnoreCase(key)">
+              is_deleted
+            </when>
+          </choose>
+          <choose>
+            <when test="'asc'.equalsIgnoreCase(value)">
+              asc
+            </when>
+            <when test="'desc'.equalsIgnoreCase(value)">
+              desc
+            </when>
+            <otherwise>
+              asc
+            </otherwise>
+          </choose>
+        </foreach>
+      </if>
+    </trim>
+  </sql>
+
+  <!-- the 'set' sql for search -->
+  <sql id="update_sql">
+    <set>
+      <if test="id != null">
+        id =  #{id} ,
+      </if>
+      <if test="groupId != null">
+        group_id =  #{groupId} ,
+      </if>
+      <if test="amountReceivable != null">
+        amount_receivable =  #{amountReceivable} ,
+      </if>
+      <if test="status != null">
+        status =  #{status} ,
+      </if>
+      <if test="auditTime != null">
+        audit_time =  #{auditTime} ,
+      </if>
+      <if test="remark != null">
+        remark =  #{remark} ,
+      </if>
+      <if test="ct != null">
+        c_t =  #{ct} ,
+      </if>
+      <if test="ut != null">
+        u_t =  #{ut} ,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted =  #{isDeleted} ,
+      </if>
+    </set>
+  </sql>
+
+  <!-- the 'set' sql with table alias for search -->
+  <sql id="update_with_alias_sql">
+    <set>
+      <if test="tb.id != null">
+        id = #{tb.id} ,
+      </if>
+      <if test="tb.groupId != null">
+        group_id = #{tb.groupId} ,
+      </if>
+      <if test="tb.amountReceivable != null">
+        amount_receivable = #{tb.amountReceivable} ,
+      </if>
+      <if test="tb.status != null">
+        status = #{tb.status} ,
+      </if>
+      <if test="tb.auditTime != null">
+        audit_time = #{tb.auditTime} ,
+      </if>
+      <if test="tb.remark != null">
+        remark = #{tb.remark} ,
+      </if>
+      <if test="tb.ct != null">
+        c_t = #{tb.ct} ,
+      </if>
+      <if test="tb.ut != null">
+        u_t = #{tb.ut} ,
+      </if>
+      <if test="tb.isDeleted != null">
+        is_deleted = #{tb.isDeleted} ,
+      </if>
+    </set>
+  </sql>
+
+  <!-- update the table by 'id' sql -->
+  <update id="updateById" parameterType="java.util.Map">
+    UPDATE d_group_logistics_bill
+    <include refid="update_with_alias_sql"/>
+	<where>
+		and id = #{id}
+	</where>
+  </update>
+
+  <!-- insert value sql -->
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+      INSERT INTO d_group_logistics_bill
+        (
+			group_id,amount_receivable,status,audit_time,remark,
+			c_t,u_t,is_deleted
+		)
+      VALUES
+      	(
+			#{groupId},#{amountReceivable},#{status},#{auditTime},#{remark},
+			#{ct},#{ut},#{isDeleted}
+      	)
+    ]]>
+  </insert>
+
+  <!-- insert into table with not null -->
+  <insert id="insertNotNull" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO  d_group_logistics_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="amountReceivable != null">
+        amount_receivable,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="ct != null">
+        c_t,
+      </if>
+      <if test="ut != null">
+        u_t,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="  VALUES(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+         #{id} ,
+      </if>
+      <if test="groupId != null">
+         #{groupId} ,
+      </if>
+      <if test="amountReceivable != null">
+         #{amountReceivable} ,
+      </if>
+      <if test="status != null">
+         #{status} ,
+      </if>
+      <if test="auditTime != null">
+         #{auditTime} ,
+      </if>
+      <if test="remark != null">
+         #{remark} ,
+      </if>
+      <if test="ct != null">
+         #{ct} ,
+      </if>
+      <if test="ut != null">
+         #{ut} ,
+      </if>
+      <if test="isDeleted != null">
+         #{isDeleted} ,
+      </if>
+    </trim>
+  </insert>
+
+
+  <!--insert batch into table -->
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO d_group_logistics_bill
+      (
+			group_id,amount_receivable,status,audit_time,remark,
+			c_t,u_t,is_deleted
+		)
+    VALUES
+    <foreach collection="list" item="item" open="" separator="," close="">
+    	(
+			#{item.groupId},#{item.amountReceivable},#{item.status},#{item.auditTime},#{item.remark},
+			#{item.ct},#{item.ut},#{item.isDeleted}
+    	)
+    </foreach>
+  </insert>
+
+  <!-- get the records by id -->
+  <select id="getById" resultMap="rm_DgroupLogisticsBillEntity">
+    SELECT
+    <include refid="columns"/>
+    <![CDATA[
+      FROM d_group_logistics_bill 
+    ]]>
+	<where>
+		and id =#{id}
+	</where>
+  </select>
+
+  <!-- get the records by ids -->
+  <select id="getByIds" resultMap="rm_DgroupLogisticsBillEntity" parameterType="java.util.List">
+    SELECT
+    <include refid="columns"/>
+    FROM d_group_logistics_bill
+	  WHERE id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+     #{item}
+    </foreach>
+  </select>
+
+  <!-- get the records by condition -->
+  <select id="select" resultMap="rm_DgroupLogisticsBillEntity">
+    SELECT
+    	<include refid="columns"/>
+		FROM d_group_logistics_bill
+    <include refid="where_with_alias_sql"/>
+    <include refid="sort_sql"/>
+    <choose>
+      <when test="limit != null  and offset != null">
+        limit #{limit} offset  #{offset}
+      </when>
+      <when test="limit != null  and offset == null">
+        limit #{limit}
+      </when>
+    </choose>
+  </select>
+
+  <!-- get the count by condition -->
+  <select id="selectCount" resultType="int">
+    SELECT count(1) FROM d_group_logistics_bill
+    <include refid="where_with_alias_sql"/>
+  </select>
+
+  <!-- delete the records by conditions -->
+  <delete id="delete">
+    DELETE FROM d_group_logistics_bill
+    <include refid="where_sql"/>
+  </delete>
+
+  <!-- deleted the records by id -->
+  <delete id="deleteById">
+    DELETE FROM d_group_logistics_bill
+    <where>
+		and id = #{id}
+    </where>
+  </delete>
+
+  <!-- deleted the records by ids -->
+  <delete id="deleteByIds" parameterType="java.util.List">
+    delete from d_group_logistics_bill
+      WHERE id in
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+	  #{item}
+    </foreach>
+  </delete>
+</mapper>

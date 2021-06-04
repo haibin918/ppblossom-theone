@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- base mybatis file for sql defined by self  -->
+<mapper namespace="com.meicai.ppblossom.theone.biz.logistics.mapper.DgroupLogisticsExpensesAccessoryMapper">
+
+    <update id="updateExpensesLogByExpensesId"
+            parameterType="com.meicai.ppblossom.theone.api.request.logistics.LogisticsExpensesReqDto">
+        update d_group_logistics_expenses_accessory set is_deleted = 1,u_t = #{uT}
+        where expenses_id = #{expensesId}
+    </update>
+
+</mapper>

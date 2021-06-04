@@ -1,0 +1,2 @@
+dubboProviderTraceFilter=com.meicai.ppblossom.theone.infrastructure.interceptors.DubboProviderTraceFilter
+dubboConsumerTraceFilter=com.meicai.ppblossom.theone.infrastructure.interceptors.DubboConsumerTraceFilter

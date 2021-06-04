@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+      http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
+    <!--    <dubbo:reference id="couponApi" interface="com.meicai.coupon.api.CouponApi"-->
+    <!--                     check="${dubbo.service.check}" group="coupon"-->
+    <!--                     timeout="1500" protocol="dubbo" retries="0" />-->
+
+<!--    <dubbo:reference id="supplierDmallService"-->
+<!--                     interface="com.sprucetec.pms.supplier.service.dmall.SupplierDmallService"-->
+<!--                     check="false"-->
+<!--                     group="supplier"-->
+<!--                     timeout="10000"-->
+<!--                     />-->
+<!--    -->
+
+<!--    <dubbo:reference id="procurementOrderQueryFacade"-->
+<!--                     check="false"-->
+<!--                     interface="com.sprucetec.po.facade.order.ProcurementOrderQueryFacade"-->
+<!--                     group="po"/>-->
+
+
+</beans>
